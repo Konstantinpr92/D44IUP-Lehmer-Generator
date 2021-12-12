@@ -17,6 +17,7 @@ namespace D44IUP_Lehmer_Generator
             InitializeComponent();
         }
 
+        //Установка значений переменный в значения по умолчнию
         private void btnDefault_Click(object sender, EventArgs e)
         {
             txtA.Text = "1103515245";
@@ -25,6 +26,7 @@ namespace D44IUP_Lehmer_Generator
             txtX.Text = "12345";
         }
 
+        //свойства для установки значений переменных А, B, C и начальное значение Х для формулы-основы метода Лемера
         public string returnA
         {
             get { return txtA.Text; }

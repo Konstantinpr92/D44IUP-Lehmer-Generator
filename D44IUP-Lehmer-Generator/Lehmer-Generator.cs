@@ -13,14 +13,21 @@ namespace D44IUP_Lehmer_Generator
 {
     public partial class Form1 : Form
     {
+        //переменные, исвользуемые в формуле.
         uint A;
         uint B;
         uint C;
         decimal X;
+
+        //список массивов для хранения результатов генерации, практически не используется, но добавляет возможность будущих доработок     
         List<int[]> generations = new List<int[]>();
+        // переменная для хранени ячисла N для текущей генерации.
         int currentN = 0;
         int countSeries = 0;
+
+        //создаем объект-генератор
         LehmerGenerator g = new LehmerGenerator();
+
         public Form1()
         {
             InitializeComponent();
@@ -37,7 +44,7 @@ namespace D44IUP_Lehmer_Generator
         {
 
         }
-
+        
         private void btnStart_Click(object sender, EventArgs e)
         {   
             if (Int32.TryParse(txtBoxforN.Text, out currentN) && (currentN>=100 && currentN <= 10000))
@@ -50,12 +57,12 @@ namespace D44IUP_Lehmer_Generator
                 MessageBox.Show("Неверный ввод. Введите n = целое число от 100 до 10000");
             }
         }
-
+        //метод для рассчетов, используя метод Лемера
         public void CalcForLemer(int currentN)
         {
-
-
+            //массив для хранения результатов генерации.
             int[] currentGeneration = new int[100];
+            //генерируем числа и записываем результат в массив
             for (int i = 0; i < currentN; i++)
             {
                 int currentRandomNumber = g.LemerN();
@@ -66,19 +73,22 @@ namespace D44IUP_Lehmer_Generator
 
             decimal M = 0;
 
+            //считаем математическое ожидание по формуле
             for (int x = 0; x < 100; x++)
             {
                 M += x / 1.0M * (currentGeneration[x] / 1.0M / currentN);
             }
 
             decimal D = 0;
-
+            //считаем дисперсию чисел по формуле
             for (int x = 0; x < 100; x++)
             {
                 D += (x / 1.0M - M) * (x / 1.0M - M) * (currentGeneration[x] / 1.0M / currentN);
             }
-
+            //вывод результатов 
             txtResult.Text = $"Результаты генерации {countSeries+1}: математическое ожидание M[X] = {M}, дисперсия D[X] =  {D} . ";
+
+            //вызов метода для рисования  графиков
             paintCharts1(currentGeneration);
             paintCharts2(currentGeneration);
             countSeries++;
@@ -86,12 +96,10 @@ namespace D44IUP_Lehmer_Generator
     
             
         }
-
-
-
-            public void calcForRandomCs(int currentN) 
+        //метод для рассчетов, используя встроенный класс Random
+        public void calcForRandomCs(int currentN) 
         {
-           
+
                 var rnd = new Random();
                 int[] currentGeneration = new int[100];
                 for (int i = 0; i < currentN; i++)
@@ -103,15 +111,15 @@ namespace D44IUP_Lehmer_Generator
                 generations.Add(currentGeneration);
 
                 decimal M = 0;
-
-                for (int x = 0; x < 100; x++)
+            //считаем математическое ожидание по формуле
+            for (int x = 0; x < 100; x++)
                 {
                     M += x / 1.0M * (currentGeneration[x] / 1.0M / currentN);
                 }
 
                 decimal D = 0;
-
-                for (int x = 0; x < 100; x++)
+            //считаем дисперсию чисел по формуле
+            for (int x = 0; x < 100; x++)
                 {
                     D += (x / 1.0M - M) * (x / 1.0M - M) * (currentGeneration[x] / 1.0M / currentN);
                 }
@@ -123,11 +131,11 @@ namespace D44IUP_Lehmer_Generator
             countSeries++;
         }
 
-
+        //метод для рисования графика-гистограммы функции f(X), для результата генерации.
         public void paintCharts1(int[] arr)
         {
             chart1fX.Series.Add(countSeries.ToString());
-
+            //настройка осей.
             Axis ax = new Axis();
             ax.Title = "Значение случайной величины";
             ax.Maximum = 100;
@@ -140,14 +148,17 @@ namespace D44IUP_Lehmer_Generator
 
            chart1fX.ChartAreas[0].AxisX = ax;
            chart1fX.ChartAreas[0].AxisY = ay;
+            //отображение столбца.
             for (int i = 0; i < 100; i++)
             {
                 chart1fX.Series[countSeries.ToString()].Points.AddXY(i,arr[i]/1.0/currentN);
             }
         }
 
+        //метод для рисования графика для интегральной функции распределения F(X), , для результата генерации.
         public void paintCharts2(int[] arr)
         {
+            //настройка оосей, маркеров-точек.
             chart2.Series.Add(countSeries.ToString());
             chart2.Series[countSeries.ToString()].ChartType = SeriesChartType.Point;
             chart2.Series[countSeries.ToString()].MarkerSize = 2;
@@ -168,6 +179,9 @@ namespace D44IUP_Lehmer_Generator
             decimal P = 0;
             decimal q = -10M;
             int a = 0;
+            //рисуем точки с координатами (q,P), постепенно увеличивая q,
+            //для получения линии для нужной вероятности P,
+            //так как график должен выглядеть как ступенчатая ломанная линия
             while (q < a)
             {
                     if (arr[a] == 0)
@@ -197,13 +211,10 @@ namespace D44IUP_Lehmer_Generator
                     
                 }
 
-               
-                
-                
-
             }
         }
 
+        //очистка полей графика по нажанию кнопки
         private void btnClear_Click(object sender, EventArgs e)
         {
                 chart1fX.Series.Clear();

@@ -29,8 +29,8 @@ namespace D44IUP_Lehmer_Generator
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.менюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкаГенератораToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,8 +87,8 @@ namespace D44IUP_Lehmer_Generator
             // 
             // chart1fX
             // 
-            chartArea7.Name = "ChartArea1";
-            this.chart1fX.ChartAreas.Add(chartArea7);
+            chartArea1.Name = "ChartArea1";
+            this.chart1fX.ChartAreas.Add(chartArea1);
             this.chart1fX.Location = new System.Drawing.Point(208, 0);
             this.chart1fX.Name = "chart1fX";
             this.chart1fX.Size = new System.Drawing.Size(1172, 330);
@@ -97,8 +97,8 @@ namespace D44IUP_Lehmer_Generator
             // 
             // chart2
             // 
-            chartArea8.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea8);
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
             this.chart2.Location = new System.Drawing.Point(208, 327);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(1172, 330);
@@ -228,7 +228,7 @@ namespace D44IUP_Lehmer_Generator
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Моделирование";
+            this.Text = "     ";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
